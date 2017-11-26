@@ -7,14 +7,12 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <ul>
-    <% flash.each do |name,msg| %>
-    <li>
-      <%= msg %>      
-    </li>
-    <% end %>
-  </ul>    
-  <%= yield %>
+  <%= render 'layouts/navigation' %>
+  <%= render 'layouts/messages' %>
+  <div class="container">
+    <%= yield %>
+  </div>
+  <%= render 'layouts/footer' %>
   <%= debug(params) if Rails.env.development? %>
 
 </body>
