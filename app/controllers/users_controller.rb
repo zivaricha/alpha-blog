@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+   before_action :find_user, only: [:edit, :update, :show, :destroy]
+   
   def new
     @user = User.new
   end
@@ -13,9 +15,28 @@ class UsersController < ApplicationController
     end
   end
   
+  def edit
+  end
+  
+  def update
+    if @user.update(user_params)
+      flash[:success] = "User was succefully updated"
+      redirect_to articles_path
+    else
+      render 'edit'
+    end
+  end
+  
+  def show
+  end
+  
   private
   
   def user_params
     params.require(:user).permit(:username, :email, :password)
+  end
+  
+  def find_user
+    @user = User.find(params[:id])
   end
 end
