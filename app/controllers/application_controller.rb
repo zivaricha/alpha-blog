@@ -14,8 +14,9 @@ class ApplicationController < ActionController::Base
   
   # this method will be used to restrict certian actions and links for logged in users only
   def require_user
-    !logged_in?
-    flash[:danger] = "You have to be logged in to perform this action"
-    redirect_to root_path
+    if !logged_in?
+      flash[:danger] = "You have to be logged in to perform this action"
+      redirect_to root_path
+    end
   end
 end
