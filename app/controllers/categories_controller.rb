@@ -1,5 +1,6 @@
 class CategoriesController < ApplicationController
   before_action :require_admin, only: [:new, :create]
+  before_action :find_category, only: [:show]
   
   def index
     @categories = Category.paginate(page: params[:page], per_page: 5)
@@ -20,6 +21,7 @@ class CategoriesController < ApplicationController
   end
   
   def show
+    @category_articles = @category.articles.paginate(page: params[:page], per_page: 1)
   end
   
   private
@@ -33,5 +35,9 @@ class CategoriesController < ApplicationController
       flash[:danger] =  "Only admins can perform that action"
       redirect_to categories_path
     end
+  end
+  
+  def find_category
+    @category = Category.find(params[:id])
   end
 end
