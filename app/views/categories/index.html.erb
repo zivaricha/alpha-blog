@@ -11,6 +11,11 @@
          <li>
            <small><%= pluralize(category.articles.count, "article") %></small>
          </li>
+         <% if logged_in? && current_user.admin?%>
+           <div class="article-actions">
+             <%= link_to "Edit category", edit_category_path(category), class: "btn btn-xs btn-primary"%>
+           </div>
+         <% end %>
        </div>
      </div>
    </ul>
